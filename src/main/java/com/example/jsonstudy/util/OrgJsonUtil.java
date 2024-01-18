@@ -1,8 +1,12 @@
 package com.example.jsonstudy.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +15,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.example.jsonstudy.data.Data;
 import com.example.jsonstudy.data.Order;
 
 public class OrgJsonUtil implements JsonUtil {
@@ -108,6 +113,33 @@ public class OrgJsonUtil implements JsonUtil {
 		}
 
 		return orders;
+	}
+
+	@Override
+	public void parseToGeneric() throws IOException {
+		JSONObject jsonObject = new JSONObject(Data.ORDER_JSON_STRING);
+		System.out.println("OrderID: " + jsonObject.getInt("orderId"));
+	}
+
+	@Override
+	public void nullHandling() throws Exception {
+		// sample order object
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Order order = new Order();
+		order.setOrderId(1);
+		order.setCustomerName(null); // I set customer name null
+		order.setTax(8.5);
+		order.setSubTotal(new BigDecimal(50.00));
+		order.setTotal(new BigDecimal(54.25));
+		order.setIsPaid(true);
+		order.setOrderDate(sdf.parse("2023-01-15"));
+		order.setItems(Arrays.asList("Laptop", "Mouse", "Keyboard"));
+		order.setItemQuantities(Map.of("Laptop", 1, "Mouse", 2, "Keyboard", 1));
+		
+		JSONObject jsonObject = new JSONObject(order);
+		String jsonString = jsonObject.toString();
+		System.out.println(jsonString);
+
 	}
 
 }

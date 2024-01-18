@@ -11,7 +11,7 @@ public class DriverClass {
 	public static void main(String[] args) throws Exception {
 
 		// 1: Jackson
-		// 2: Google
+		// 2: Gson
 		// 3. Org.Json
 
 		int ch = 3;
@@ -34,6 +34,8 @@ public class DriverClass {
 		jsonUtil.convertToJsonString(Data.ORDER_LIST_OBJECT());
 		jsonUtil.convertToObject(Data.ORDER_JSON_STRING);
 		jsonUtil.convertToObjectList(Data.ORDER_LIST_JSON_STRING);
+		jsonUtil.parseToGeneric();
+		jsonUtil.nullHandling();
 		System.out.println(jsonUtil.getClass().getName() + " Done");
 	}
 
